@@ -5,8 +5,6 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson_1", "lesson_1\lesson_1.vcxproj", "{8D257496-BB96-43A8-A866-26FB791E885B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrenerovkaC++", "\\PC64\Users\kinko\source\repos\visual-studio-trunya\TrenerovkaC++\TrenerovkaC++\TrenerovkaC++.vcxproj", "{C847DC6C-0BB2-4F25-B9DC-C51F9FA1AB2A}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testMQTT", "\\PC64\Users\kinko\source\repos\visual-studio-trunya\testMQTT\testMQTT\testMQTT.vcxproj", "{7B6C19AF-6518-43F0-9ADA-B058E97A1BB4}"
 EndProject
 Global
@@ -25,14 +23,6 @@ Global
 		{8D257496-BB96-43A8-A866-26FB791E885B}.Release|x64.Build.0 = Release|x64
 		{8D257496-BB96-43A8-A866-26FB791E885B}.Release|x86.ActiveCfg = Release|Win32
 		{8D257496-BB96-43A8-A866-26FB791E885B}.Release|x86.Build.0 = Release|Win32
-		{C847DC6C-0BB2-4F25-B9DC-C51F9FA1AB2A}.Debug|x64.ActiveCfg = Debug|x64
-		{C847DC6C-0BB2-4F25-B9DC-C51F9FA1AB2A}.Debug|x64.Build.0 = Debug|x64
-		{C847DC6C-0BB2-4F25-B9DC-C51F9FA1AB2A}.Debug|x86.ActiveCfg = Debug|Win32
-		{C847DC6C-0BB2-4F25-B9DC-C51F9FA1AB2A}.Debug|x86.Build.0 = Debug|Win32
-		{C847DC6C-0BB2-4F25-B9DC-C51F9FA1AB2A}.Release|x64.ActiveCfg = Release|x64
-		{C847DC6C-0BB2-4F25-B9DC-C51F9FA1AB2A}.Release|x64.Build.0 = Release|x64
-		{C847DC6C-0BB2-4F25-B9DC-C51F9FA1AB2A}.Release|x86.ActiveCfg = Release|Win32
-		{C847DC6C-0BB2-4F25-B9DC-C51F9FA1AB2A}.Release|x86.Build.0 = Release|Win32
 		{7B6C19AF-6518-43F0-9ADA-B058E97A1BB4}.Debug|x64.ActiveCfg = Debug|x64
 		{7B6C19AF-6518-43F0-9ADA-B058E97A1BB4}.Debug|x64.Build.0 = Debug|x64
 		{7B6C19AF-6518-43F0-9ADA-B058E97A1BB4}.Debug|x86.ActiveCfg = Debug|Win32
