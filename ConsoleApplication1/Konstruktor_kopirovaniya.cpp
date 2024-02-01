@@ -28,7 +28,6 @@ public:
         cout << "Диструктор для Point " << this << endl;
     }
 };
-
 class MyClass {
     private:
         int* data;
