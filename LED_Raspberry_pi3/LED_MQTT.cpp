@@ -21,7 +21,8 @@ extern "C" {           //"extern" в C++ используется для указания компилятору, ч
 #define GPIO_PIN                18                 // Устанавливаем номер GPIO (General Purpose Input/Output) пина.
 #define DMA                     10                 // Устанавливаем номер канала Direct Memory Access (DMA), который будет использоваться для отправки данных на светодиодную ленту.
 #define STRIP_TYPE              WS2811_STRIP_RGB   // Устанавливаем тип светодиодной ленты.
-#define LED_COUNT               600  // Обновлено на 50 светодиодов
+#define LED_COUNT               600  // Обновлено на 600 светодиодов
+#define LED_COUNT2               60  // Обновлено на 60 светодиодов
 // Здесь создается экземпляр структуры ws2811_t, которая используется для настройки и управления светодиодной лентой WS2811.
 void message_publish(struct mosquitto* mosq, const char* msg);
 ws2811_t ledstring = 
@@ -43,7 +44,7 @@ ws2811_t ledstring =
         {
             .gpionum = 13,
             .invert = 0,
-            .count = LED_COUNT,
+            .count = LED_COUNT2,
             .strip_type = WS2811_STRIP_GRB,
             .brightness = 255,
         }
@@ -67,23 +68,42 @@ void on_message(struct mosquitto* mosq, void* obj, const struct mosquitto_messag
         if (std::string(message->topic) == "topic_num_RGB") {
             //Проверяем, соответствует ли длина полученного сообщения ожидаемому размеру
             if (message->payloadlen != LED_COUNT * sizeof(uint32_t)) {
-                std::cout << "12345";
+                
                 std::cout << "Incorrect message size  " << message->payloadlen << " a nado " << LED_COUNT * sizeof(uint32_t) << std::endl;
 
                 char msg[256]; // Буфер для форматированной строки. 
                 snprintf(msg, sizeof(msg), "Incorrect message size %d a nado %lu", message->payloadlen, LED_COUNT * sizeof(uint32_t));
                 message_publish(mosq, msg);
-                return;
 
+                return;
             }
 
             std::memcpy(ledstring.channel[0].leds, message->payload, LED_COUNT * sizeof(uint32_t));
-            std::memcpy(ledstring.channel[1].leds, message->payload, LED_COUNT * sizeof(uint32_t));
             ws2811_render(&ledstring);
 
-            char* msg = "1";
-            message_publish(mosq, msg);
+            //char* msg = "1";
+            //message_publish(mosq, msg);
    
+        }
+        else if (std::string(message->topic) == "topic_num_RGB2")
+        {
+            if (message->payloadlen != LED_COUNT2 * sizeof(uint32_t)) {
+                
+                std::cout << "Incorrect message size  " << message->payloadlen << " a nado " << LED_COUNT2 * sizeof(uint32_t) << std::endl;
+
+                char msg[256]; // Буфер для форматированной строки. 
+                snprintf(msg, sizeof(msg), "Incorrect message size %d a nado %lu", message->payloadlen, LED_COUNT2 * sizeof(uint32_t));
+                message_publish(mosq, msg);
+
+                return;
+            }
+
+            std::memcpy(ledstring.channel[1].leds, message->payload, LED_COUNT2 * sizeof(uint32_t));
+            ws2811_render(&ledstring);
+
+            char* msg = "2";
+            message_publish(mosq, msg);
+
         }else if(std::string(message->topic) == "topic_stop")
         {
             char* msg = "MQTT_LED Stop";
