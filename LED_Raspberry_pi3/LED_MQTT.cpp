@@ -67,41 +67,27 @@ void on_message(struct mosquitto* mosq, void* obj, const struct mosquitto_messag
     
         if (std::string(message->topic) == "topic_num_RGB") {
             //Проверяем, соответствует ли длина полученного сообщения ожидаемому размеру
-            if (message->payloadlen != LED_COUNT * sizeof(uint32_t)) {
+            if (message->payloadlen != (LED_COUNT + LED_COUNT2) * sizeof(uint32_t)) {
                 
-                std::cout << "Incorrect message size  " << message->payloadlen << " a nado " << LED_COUNT * sizeof(uint32_t) << std::endl;
+                std::cout << "Incorrect message size  " << message->payloadlen << " a nado " << (LED_COUNT + LED_COUNT2) * sizeof(uint32_t) << std::endl;
 
                 char msg[256]; // Буфер для форматированной строки. 
-                snprintf(msg, sizeof(msg), "Incorrect message size %d a nado %lu", message->payloadlen, LED_COUNT * sizeof(uint32_t));
+                snprintf(msg, sizeof(msg), "Incorrect message size %d a nado %lu", message->payloadlen, (LED_COUNT + LED_COUNT2) * sizeof(uint32_t));
                 message_publish(mosq, msg);
 
                 return;
             }
-
-            std::memcpy(ledstring.channel[0].leds, message->payload, LED_COUNT * sizeof(uint32_t));
-            ws2811_render(&ledstring);
-
             //char* msg = "1";
             //message_publish(mosq, msg);
-   
-        }
-        else if (std::string(message->topic) == "topic_num_RGB2")
-        {
-            if (message->payloadlen != LED_COUNT2 * sizeof(uint32_t)) {
-                
-                std::cout << "Incorrect message size  " << message->payloadlen << " a nado " << LED_COUNT2 * sizeof(uint32_t) << std::endl;
+            //std::memcpy(ledstring.channel[0].leds, message->payload, LED_COUNT * sizeof(uint32_t));
+           
+            //std::memcpy(ledstring.channel[1].leds, message->payload + LED_COUNT * sizeof(uint32_t), LED_COUNT2 * sizeof(uint32_t));
 
-                char msg[256]; // Буфер для форматированной строки. 
-                snprintf(msg, sizeof(msg), "Incorrect message size %d a nado %lu", message->payloadlen, LED_COUNT2 * sizeof(uint32_t));
-                message_publish(mosq, msg);
-
-                return;
-            }
-
-            std::memcpy(ledstring.channel[1].leds, message->payload, LED_COUNT2 * sizeof(uint32_t));
+            ledstring.channel[0].leds = (ws2811_led_t*)message->payload;
+            ledstring.channel[1].leds = (ws2811_led_t*)(message->payload + (LED_COUNT * sizeof(ws2811_led_t)));
             ws2811_render(&ledstring);
-
-            char* msg = "2";
+            
+            char* msg = "1";
             message_publish(mosq, msg);
 
         }else if(std::string(message->topic) == "topic_stop")
