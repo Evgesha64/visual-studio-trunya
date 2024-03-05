@@ -22,7 +22,7 @@ extern "C" {           //"extern" в C++ используется для указания компилятору, ч
 #define DMA                     10                 // Устанавливаем номер канала Direct Memory Access (DMA), который будет использоваться для отправки данных на светодиодную ленту.
 #define STRIP_TYPE              WS2811_STRIP_RGB   // Устанавливаем тип светодиодной ленты.
 #define LED_COUNT               600  // Обновлено на 600 светодиодов
-#define LED_COUNT2               60  // Обновлено на 60 светодиодов
+#define LED_COUNT2              600  // Обновлено на 60 светодиодов
 // Здесь создается экземпляр структуры ws2811_t, которая используется для настройки и управления светодиодной лентой WS2811.
 void message_publish(struct mosquitto* mosq, const char* msg);
 ws2811_t ledstring = 
@@ -61,7 +61,6 @@ void on_connect(struct mosquitto* mosq, void* obj, int reason_code)
         mosquitto_disconnect(mosq);
     }
 }
-
 void on_message(struct mosquitto* mosq, void* obj, const struct mosquitto_message* message)
 {
     
@@ -79,12 +78,12 @@ void on_message(struct mosquitto* mosq, void* obj, const struct mosquitto_messag
             }
             //char* msg = "1";
             //message_publish(mosq, msg);
-            //std::memcpy(ledstring.channel[0].leds, message->payload, LED_COUNT * sizeof(uint32_t));
+            std::memcpy(ledstring.channel[0].leds, message->payload, LED_COUNT * sizeof(uint32_t));
            
-            //std::memcpy(ledstring.channel[1].leds, message->payload + LED_COUNT * sizeof(uint32_t), LED_COUNT2 * sizeof(uint32_t));
+            std::memcpy(ledstring.channel[1].leds, message->payload + LED_COUNT * sizeof(uint32_t), LED_COUNT2 * sizeof(uint32_t));
 
-            ledstring.channel[0].leds = (ws2811_led_t*)message->payload;
-            ledstring.channel[1].leds = (ws2811_led_t*)(message->payload + (LED_COUNT * sizeof(ws2811_led_t)));
+            //ledstring.channel[0].leds = (ws2811_led_t*)message->payload;
+            //ledstring.channel[1].leds = (ws2811_led_t*)(message->payload + (LED_COUNT * sizeof(ws2811_led_t)));
             ws2811_render(&ledstring);
             
             char* msg = "1";
@@ -191,8 +190,8 @@ int main()
         fprintf(stderr, "Error: %s\n", mosquitto_strerror(rc));
         return 1;
     }*/
-    //running_fire();
-    // ws2811_render(&ledstring);
+    
+    
     
      mosquitto_loop_forever(mosq, 0, 1);
      mosquitto_destroy(mosq);

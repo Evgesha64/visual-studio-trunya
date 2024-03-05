@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LED_MQTT.cpp" />
+    <ClCompile Include="SPI_RaspberryPi3_PigPio.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{d659ac8e-3126-49d9-a6f8-5522fae37c51}</ProjectGuid>
@@ -81,14 +81,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\kinko\source\repos\Evgesha64\visual-studio-trunya\LED_Raspberry_pi3\rpi_ws281x;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <LibraryDependencies>ws2811;mosquitto</LibraryDependencies>
+      <AdditionalLibraryDirectories>C:\Users\kinko\source\repos\Evgesha64\visual-studio-trunya\LED_Raspberry_pi3\rpi_ws281x;C:\Users\kinko\source\repos\Evgesha64\visual-studio-trunya\LED_Raspberry_pi3\WiringPi-master\wiringPi;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LibraryDependencies>ws2811;mosquitto;wiringPi;pigpio</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\kinko\source\repos\Evgesha64\visual-studio-trunya\LED_Raspberry_pi3\rpi_ws281x;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <LibraryDependencies>ws2811;mosquitto</LibraryDependencies>
+      <AdditionalLibraryDirectories>C:\Users\kinko\source\repos\Evgesha64\visual-studio-trunya\LED_Raspberry_pi3\rpi_ws281x;C:\Users\kinko\source\repos\Evgesha64\visual-studio-trunya\LED_Raspberry_pi3\WiringPi-master\wiringPi;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LibraryDependencies>ws2811;mosquitto;wiringPi;pigpio</LibraryDependencies>
     </Link>
     <ClCompile>
       <DebugInformationFormat>FullDebug</DebugInformationFormat>
